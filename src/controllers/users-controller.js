@@ -19,7 +19,7 @@ async function signup(req, res, next) {
 
     res.json({
       status: 'ok',
-      user,
+      data: user,
     });
   } catch (err) {
     next(err);
@@ -32,7 +32,7 @@ async function signin(req, res, next) {
     user.passwordHash = undefined;
     res.json({
       status: 'ok',
-      user,
+      data: user,
     });
   } catch (err) {
     next(err);
