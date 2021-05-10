@@ -14,7 +14,6 @@ function buildUsersActions({ passwordUtils }) {
         }
 
         const newUser = makeUser(userInfo);
-        newUser.password = passwordUtils.genPasswordHash(newUser.password);
 
         return usersDb.insert(newUser);
       });
@@ -27,7 +26,7 @@ function buildUsersActions({ passwordUtils }) {
           throw Error('Неверный логин или пароль');
         }
 
-        const isValidPassword = passwordUtils.validatePassword(password, user.password);
+        const isValidPassword = passwordUtils.validatePassword(password, user.passwordHash);
 
         if (!isValidPassword) {
           throw Error('Неверный логин или пароль');

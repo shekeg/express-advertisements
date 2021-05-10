@@ -1,17 +1,19 @@
-function makeUser({
-  id = null,
-  email = '',
-  password = '',
-  name = '',
-  contactPhone = '',
-}) {
-  return {
-    id,
-    email,
-    password,
-    name,
-    contactPhone,
+function buildMakeUser({ passwordUtils }) {
+  return function makeUser({
+    id = null,
+    email = '',
+    password = '',
+    name = '',
+    contactPhone = '',
+  }) {
+    return {
+      id,
+      email,
+      passwordHash: passwordUtils.genPasswordHash(password),
+      name,
+      contactPhone,
+    };
   };
 }
 
-exports.makeUser = makeUser;
+exports.buildMakeUser = buildMakeUser;
