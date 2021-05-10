@@ -6,6 +6,16 @@ function buildMakeUser({ passwordUtils }) {
     name = '',
     contactPhone = '',
   }) {
+    if (email === '') {
+      throw new Error('поле email обязатьельно для заполнения');
+    }
+    if (password === '') {
+      throw new Error('поле password обязатьельно для заполнения');
+    }
+    if (name === '') {
+      throw new Error('поле name обязатьельно для заполнения');
+    }
+
     return {
       id,
       email,
