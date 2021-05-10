@@ -6,7 +6,7 @@ function buildUsersActions({ passwordUtils }) {
     return usersDb.findByEmail({ email });
   }
 
-  function addUser(userInfo) {
+  function signup(userInfo) {
     const newUser = makeUser(userInfo);
     newUser.password = passwordUtils.genPasswordHash(newUser.password);
 
@@ -20,7 +20,7 @@ function buildUsersActions({ passwordUtils }) {
 
   return {
     getUserByEmail,
-    addUser,
+    signup,
     signin,
   };
 }

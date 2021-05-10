@@ -12,9 +12,9 @@ async function getUserByEmail(req, res, next) {
   }
 }
 
-async function addUser(req, res, next) {
+async function signup(req, res, next) {
   try {
-    const user = await usersActions.addUser({ ...req.body });
+    const user = await usersActions.signup({ ...req.body });
     res.json({
       status: 'ok',
       user,
@@ -39,7 +39,7 @@ async function signin(req, res, next) {
 
 const usersController = {
   getUserByEmail,
-  addUser,
+  signup,
   signin,
 };
 

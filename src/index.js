@@ -2,15 +2,16 @@ require('dotenv').config();
 
 const express = require('express');
 const { initMongoose } = require('./db');
+const { usersController } = require('./controllers');
 const { errorsController } = require('./controllers');
-const { usersRouter } = require('./routers');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/users', usersRouter);
+app.use('/api/signup', usersController.signup);
+app.use('/api/signin', usersController.signin);
 
 app.use(errorsController.notFoundHandler);
 app.use(errorsController.unexpectedErrorHandler);
