@@ -24,9 +24,23 @@ async function addUser(req, res, next) {
   }
 }
 
+async function signin(req, res, next) {
+  try {
+    const { email, password } = req.body;
+    const isValidUser = await usersActions.signin({ email, password });
+    res.json({
+      status: 'ok',
+      isValidUser,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 const usersController = {
   getUserByEmail,
   addUser,
+  signin,
 };
 
 exports.usersController = usersController;
