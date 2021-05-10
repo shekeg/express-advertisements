@@ -1,5 +1,5 @@
-const { makeUser } = require('../entities');
-const { usersDb } = require('../db');
+const { makeUser } = require('../../entities');
+const { usersDb } = require('../../db');
 
 function getUserByEmail({ email }) {
   return usersDb.findByEmail({ email });
