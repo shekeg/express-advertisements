@@ -1,21 +1,25 @@
 const express = require('express');
+const { initMongoose } = require('./db');
 
 const app = express();
 
-app.get('/', (req, res) => {
-  return res.json('ok');
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-startServer()
+startServer();
 
-async function startServer() {
-  try {
-    const PORT = process.env.PORT || 3000;
+function startServer() {
+  initMongoose()
+    .then(() => {
+      const PORT = process.env.PORT || 3000;
 
-    app.listen(PORT, () => {
-      console.log(`=== start server PORT ${PORT} ===`);
+      app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log(`=== start server PORT ${PORT} ===`);
+      });
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
     });
-  } catch (err) {
-    console.log(err);
-  }
 }
