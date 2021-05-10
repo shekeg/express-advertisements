@@ -9,12 +9,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+function findByEmail({ email }) {
+  return User.find({ email }).exec();
+}
+
 function insert(userInfo) {
   const newUser = new User(userInfo);
   return newUser.save(userInfo);
 }
 
 const usersDb = {
+  findByEmail,
   insert,
 };
 
