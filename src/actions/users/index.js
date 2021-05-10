@@ -1,4 +1,6 @@
-const { usersActions } = require('./users-actions');
+const { buildUsersActions } = require('./users-actions');
+
+const usersActions = buildUsersActions();
 
 module.exports = {
   usersActions,
