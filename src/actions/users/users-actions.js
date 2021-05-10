@@ -15,7 +15,19 @@ function buildUsersActions({ passwordUtils }) {
 
   function signin({ email, password }) {
     return usersDb.findByEmail({ email })
-      .then((user) => passwordUtils.validatePassword(password, user.password));
+      .then((user) => {
+        if (user === null) {
+          throw Error('Неверный логин или пароль');
+        }
+
+        const isValidPassword = passwordUtils.validatePassword(password, user.password);
+
+        if (!isValidPassword) {
+          throw Error('Неверный логин или пароль');
+        }
+
+        return user;
+      });
   }
 
   return {
