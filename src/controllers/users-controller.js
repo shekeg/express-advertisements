@@ -15,6 +15,8 @@ async function getUserByEmail(req, res, next) {
 async function signup(req, res, next) {
   try {
     const user = await usersActions.signup({ ...req.body });
+    user.passwordHash = undefined;
+
     res.json({
       status: 'ok',
       user,
@@ -26,11 +28,11 @@ async function signup(req, res, next) {
 
 async function signin(req, res, next) {
   try {
-    const { email, password } = req.body;
-    const isValidUser = await usersActions.signin({ email, password });
+    const { user } = req;
+    user.passwordHash = undefined;
     res.json({
       status: 'ok',
-      isValidUser,
+      user,
     });
   } catch (err) {
     next(err);

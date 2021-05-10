@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+function findById({ id }) {
+  return User.findById(id).exec();
+}
+
 function findByEmail({ email }) {
   return User.findOne({ email }).exec();
 }
@@ -19,6 +23,7 @@ function insert(userInfo) {
 }
 
 const usersDb = {
+  findById,
   findByEmail,
   insert,
 };
