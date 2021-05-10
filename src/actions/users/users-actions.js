@@ -7,10 +7,17 @@ function buildUsersActions({ passwordUtils }) {
   }
 
   function signup(userInfo) {
-    const newUser = makeUser(userInfo);
-    newUser.password = passwordUtils.genPasswordHash(newUser.password);
+    return usersDb.findByEmail({ email: userInfo.email })
+      .then((user) => {
+        if (user !== null) {
+          throw Error('email занят');
+        }
 
-    return usersDb.insert(newUser);
+        const newUser = makeUser(userInfo);
+        newUser.password = passwordUtils.genPasswordHash(newUser.password);
+
+        return usersDb.insert(newUser);
+      });
   }
 
   function signin({ email, password }) {
