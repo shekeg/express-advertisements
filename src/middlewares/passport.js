@@ -40,6 +40,10 @@ passport.deserializeUser((userId, done) => {
     .catch((err) => done(err));
 });
 
+const initializeMiddleware = passport.initialize();
+
+const sessionMiddleware = passport.session();
+
 const authenticateMiddleware = (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) { return next(err); }
@@ -51,4 +55,10 @@ const authenticateMiddleware = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.authenticateMiddleware = authenticateMiddleware;
+const passportMiddlewares = {
+  initializeMiddleware,
+  sessionMiddleware,
+  authenticateMiddleware,
+};
+
+exports.passportMiddlewares = passportMiddlewares;
