@@ -5,7 +5,7 @@ const express = require('express');
 const { initMongoose } = require('./db');
 const { passportMiddlewares, sessionMiddleware } = require('./middlewares');
 
-const { usersController } = require('./controllers');
+const { usersController, advertisementsController } = require('./controllers');
 const { errorsController } = require('./controllers');
 
 const app = express();
@@ -20,6 +20,11 @@ app.use(passportMiddlewares.sessionMiddleware);
 
 app.use('/api/signup', usersController.signup);
 app.use('/api/signin', passportMiddlewares.authenticateMiddleware, usersController.signin);
+
+app.get('/api/advertisements', advertisementsController.findAll);
+app.get('/api/advertisements/:id', advertisementsController.findById);
+app.post('/api/advertisements', advertisementsController.insert);
+app.delete('/api/advertisements/:id', advertisementsController.deleteById);
 
 app.use(errorsController.notFoundHandler);
 app.use(errorsController.unexpectedErrorHandler);
