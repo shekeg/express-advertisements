@@ -1,4 +1,4 @@
-const { usersActions } = require('../actions/users');
+const { usersActions } = require('../actions');
 
 async function getUserByEmail(req, res, next) {
   try {

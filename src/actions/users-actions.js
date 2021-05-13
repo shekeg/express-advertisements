@@ -1,5 +1,5 @@
-const { makeUser } = require('../../entities');
-const { usersDb } = require('../../db');
+const { makeUser } = require('../entities');
+const { usersDb } = require('../db');
 
 function buildUsersActions({ passwordUtils }) {
   function getUserByEmail({ email }) {
