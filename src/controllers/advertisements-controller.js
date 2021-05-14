@@ -29,6 +29,7 @@ async function insert(req, res, next) {
   try {
     const newAdvertisements = await advertisementsActions.insert({
       ...req.body,
+      images: req.files.map((f) => f.path),
       isDeleted: false,
     });
 

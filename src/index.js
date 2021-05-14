@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 
 const { initMongoose } = require('./db');
-const { passportMiddlewares, sessionMiddleware } = require('./middlewares');
+const { passportMiddlewares, sessionMiddleware, multerMiddleware } = require('./middlewares');
 
 const { usersController, advertisementsController } = require('./controllers');
 const { errorsController } = require('./controllers');
@@ -23,7 +23,7 @@ app.use('/api/signin', passportMiddlewares.authenticateMiddleware, usersControll
 
 app.get('/api/advertisements', advertisementsController.findAll);
 app.get('/api/advertisements/:id', advertisementsController.findById);
-app.post('/api/advertisements', advertisementsController.insert);
+app.post('/api/advertisements', multerMiddleware.array('images'), advertisementsController.insert);
 app.delete('/api/advertisements/:id', advertisementsController.deleteById);
 
 app.use(errorsController.notFoundHandler);
