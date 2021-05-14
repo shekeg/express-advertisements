@@ -23,7 +23,12 @@ app.use('/api/signin', passportMiddlewares.authenticateMiddleware, usersControll
 
 app.get('/api/advertisements', advertisementsController.findAll);
 app.get('/api/advertisements/:id', advertisementsController.findById);
-app.post('/api/advertisements', multerMiddleware.array('images'), advertisementsController.insert);
+app.post(
+  '/api/advertisements',
+  passportMiddlewares.checkIsAuthentificated,
+  multerMiddleware.array('images'),
+  advertisementsController.insert,
+);
 app.delete('/api/advertisements/:id', advertisementsController.deleteById);
 
 app.use(errorsController.notFoundHandler);

@@ -55,10 +55,22 @@ const authenticateMiddleware = (req, res, next) => {
   })(req, res, next);
 };
 
+const checkIsAuthentificated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(401).json({
+      status: 'error',
+      error: 'Пользователь не аутентифицирован',
+    });
+  }
+};
+
 const passportMiddlewares = {
   initializeMiddleware,
   sessionMiddleware,
   authenticateMiddleware,
+  checkIsAuthentificated,
 };
 
 exports.passportMiddlewares = passportMiddlewares;
