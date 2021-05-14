@@ -45,7 +45,7 @@ async function insert(req, res, next) {
 
 async function deleteById(req, res, next) {
   try {
-    await advertisementsActions.deleteById({ id: req.params.id });
+    await advertisementsActions.deleteById({ id: req.params.id, userId: req.user.id });
 
     res.json({
       status: 'ok',

@@ -29,7 +29,7 @@ app.post(
   multerMiddleware.array('images'),
   advertisementsController.insert,
 );
-app.delete('/api/advertisements/:id', advertisementsController.deleteById);
+app.delete('/api/advertisements/:id', passportMiddlewares.checkIsAuthentificated, advertisementsController.deleteById);
 
 app.use(errorsController.notFoundHandler);
 app.use(errorsController.unexpectedErrorHandler);
